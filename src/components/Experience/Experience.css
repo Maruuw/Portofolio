@@ -1,0 +1,616 @@
+/* ============================================
+   EXPERIENCE — BOOK FLIP
+   ============================================ */
+.experience {
+  background: var(--bg);
+}
+
+/* ---- Book scene (centres the book + nav) ---- */
+.book-scene {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* ---- Book container ---- */
+.book {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  perspective: 2400px;
+}
+
+/* ================================================
+   BOOK COVER — decorative border / shadow
+   ================================================ */
+.book-cover {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: calc(50% + 6px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.book-cover-left {
+  left: -6px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 10px 0 0 10px;
+  box-shadow:
+    -6px 6px 24px rgba(0, 0, 0, 0.12),
+    inset 3px 0 8px rgba(0, 0, 0, 0.04);
+}
+
+.book-cover-right {
+  right: -6px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 0 10px 10px 0;
+  box-shadow:
+    6px 6px 24px rgba(0, 0, 0, 0.12),
+    inset -3px 0 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ================================================
+   PAGE-EDGE STACKING LINES (visible depth)
+   ================================================ */
+.page-edges {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  width: 10px;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--surface) 0px,
+    var(--surface) 2px,
+    var(--border) 2px,
+    var(--border) 3px
+  );
+}
+
+.page-edges-right {
+  right: -3px;
+  border-radius: 0 3px 3px 0;
+  opacity: 0.6;
+}
+
+.page-edges-left {
+  left: -3px;
+  border-radius: 3px 0 0 3px;
+  opacity: 0.6;
+}
+
+/* ================================================
+   SPINE
+   ================================================ */
+.book-spine {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  bottom: -6px;
+  width: 28px;
+  transform: translateX(-50%);
+  z-index: 300;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.03) 35%,
+    rgba(0, 0, 0, 0.0) 50%,
+    rgba(0, 0, 0, 0.03) 65%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.book-spine::before,
+.book-spine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.book-spine::before {
+  left: 0;
+  background: var(--border);
+}
+
+.book-spine::after {
+  right: 0;
+  background: var(--border);
+}
+
+/* ================================================
+   STATIC PAGES  (cover-inner & end-page)
+   ================================================ */
+.page-static {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.page-static-left {
+  left: 0;
+  border-radius: 10px 0 0 10px;
+}
+
+.page-static-right {
+  right: 0;
+  border-radius: 0 10px 10px 0;
+}
+
+.cover-inner,
+.end-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 28px;
+  text-align: center;
+  background: var(--surface);
+}
+
+.cover-ornament,
+.end-ornament {
+  font-size: 52px;
+  margin-bottom: 20px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.cover-title,
+.end-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.cover-subtitle,
+.end-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 220px;
+}
+
+.cover-arrow-hint {
+  margin-top: 28px;
+}
+
+.cover-arrow-hint span {
+  display: inline-block;
+  font-size: 26px;
+  color: var(--primary);
+  animation: slide-right 1.8s ease-in-out infinite;
+}
+
+@keyframes slide-right {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+}
+
+.end-cta {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px 28px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all var(--transition-base);
+}
+
+.end-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+/* ================================================
+   LEAF  (the flippable page)
+   ================================================ */
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+}
+
+.leaf.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* ---- Faces ---- */
+.leaf-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.leaf-front {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
+}
+
+.leaf-back {
+  transform: rotateY(180deg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- Subtle notebook ruling ---- */
+.page-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 31px,
+    var(--border) 31px,
+    var(--border) 32px
+  );
+  opacity: 0.25;
+  z-index: 0;
+}
+
+/* ================================================
+   PAGE CONTENT (shared by front & back)
+   ================================================ */
+.page-content {
+  position: relative;
+  z-index: 1;
+  padding: 36px 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* ---- Page numbers ---- */
+.page-number {
+  position: absolute;
+  bottom: 18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.page-number-right {
+  right: 28px;
+}
+
+.page-number-left {
+  left: 28px;
+}
+
+/* ================================================
+   FRONT PAGE CONTENT  (experience header)
+   ================================================ */
+.exp-logo-large {
+  font-size: 48px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+}
+
+.exp-role {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.exp-company {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.exp-type-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  align-self: flex-start;
+}
+
+.exp-meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.meta-icon {
+  font-size: 16px;
+}
+
+.page-turn-hint {
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  animation: slide-right 2.2s ease-in-out infinite;
+  padding-bottom: 16px;
+}
+
+/* ================================================
+   BACK PAGE CONTENT  (experience details)
+   ================================================ */
+.exp-details-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 2px solid;
+}
+
+.exp-details-emoji {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.exp-details-role {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.exp-details-company {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.exp-description {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.exp-description li {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.exp-skills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-bottom: 20px;
+}
+
+.exp-skill {
+  padding: 3px 10px;
+  border: 1px solid;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ================================================
+   NAVIGATION
+   ================================================ */
+.book-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.nav-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-subtle);
+  transform: scale(1.1);
+}
+
+.nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.book-page-indicator {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.page-current {
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.page-sep {
+  color: var(--border);
+}
+
+/* ---- Page dots ---- */
+.book-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.book-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all var(--transition-base);
+}
+
+.book-dot.active {
+  width: 22px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media (max-width: 968px) {
+  .book {
+    height: 460px;
+  }
+  .page-content {
+    padding: 28px 22px;
+  }
+  .exp-logo-large {
+    font-size: 38px;
+  }
+  .exp-role {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book {
+    height: 420px;
+  }
+  .page-content {
+    padding: 22px 18px;
+  }
+  .exp-logo-large {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .exp-role {
+    font-size: 15px;
+  }
+  .exp-company {
+    font-size: 13px;
+  }
+  .exp-description li {
+    font-size: 12px;
+  }
+  .cover-title,
+  .end-title {
+    font-size: 17px;
+  }
+  .cover-subtitle,
+  .end-subtitle {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .book {
+    height: 380px;
+  }
+  .page-content {
+    padding: 18px 14px;
+  }
+  .exp-logo-large {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .exp-role {
+    font-size: 14px;
+  }
+  .exp-type-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+  }
+  .meta-item {
+    font-size: 11px;
+  }
+  .exp-description li {
+    font-size: 11px;
+    gap: 6px;
+  }
+  .exp-skill {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+  .cover-ornament,
+  .end-ornament {
+    font-size: 36px;
+  }
+  .book-cover {
+    display: none;
+  }
+  .page-edges {
+    display: none;
+  }
+}
