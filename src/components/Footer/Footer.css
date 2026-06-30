@@ -17,10 +17,35 @@
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
+  letter-spacing: -0.05em;
   margin-bottom: 16px;
+}
+
+.footer-logo .logo-name {
+  color: var(--text-primary);
+  text-transform: lowercase;
+  transition: all var(--transition-fast);
+}
+
+.footer-logo .logo-dot {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.3em;
+  line-height: 1;
+  margin-left: 1px;
+  display: inline-block;
+  animation: pulse-dot 2.5s infinite ease-in-out;
+}
+
+.footer-logo:hover .logo-name {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .footer-desc {

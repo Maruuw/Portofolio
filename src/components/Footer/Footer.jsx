@@ -27,9 +27,8 @@ const Footer = () => {
           {/* Brand */}
           <div className="footer-brand">
             <a href="#home" className="footer-logo" onClick={() => handleNav('#home')}>
-              <span className="logo-bracket">&lt;</span>
-              <span className="logo-name">DP</span>
-              <span className="logo-bracket">/&gt;</span>
+              <span className="logo-name">damar</span>
+              <span className="logo-dot">.</span>
             </a>
             <p className="footer-desc">{t.footer.desc}</p>
             <div className="footer-social">

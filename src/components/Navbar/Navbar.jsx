@@ -52,9 +52,8 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={() => handleNavClick('#home')}>
-          <span className="logo-bracket">&lt;</span>
-          <span className="logo-name">DP</span>
-          <span className="logo-bracket">/&gt;</span>
+          <span className="logo-name">damar</span>
+          <span className="logo-dot">.</span>
         </a>
 
         {/* Desktop Nav */}
