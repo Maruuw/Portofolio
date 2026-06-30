@@ -89,7 +89,19 @@ const Projects = () => {
                 {project.featured && (
                   <span className="featured-badge">⭐ Featured</span>
                 )}
-                <h3 className="project-title">{project.title}</h3>
+                <h3 className="project-title">
+                  {project.demo && project.demo !== '#' ? (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </a>
+                  ) : project.github && project.github !== '#' ? (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </a>
+                  ) : (
+                    project.title
+                  )}
+                </h3>
                 <p className="project-desc">{project.description[lang]}</p>
                 <div className="project-tags">
                   {project.tags.map((tag, j) => (
