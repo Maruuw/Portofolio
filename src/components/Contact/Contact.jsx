@@ -7,10 +7,8 @@ import useScrollReveal from '../../hooks/useScrollReveal';
 import './Contact.css';
 
 const SOCIAL_LINKS = [
-  { name: 'GitHub', icon: '🐙', href: 'https://github.com/yourusername', color: '#333' },
-  { name: 'LinkedIn', icon: '💼', href: 'https://linkedin.com/in/yourusername', color: '#0077B5' },
-  { name: 'Dribbble', icon: '🏀', href: 'https://dribbble.com/yourusername', color: '#EA4C89' },
-  { name: 'Instagram', icon: '📸', href: 'https://instagram.com/yourusername', color: '#E4405F' },
+  { name: 'GitHub', icon: '🐙', href: 'https://github.com/Maruuw', color: '#333' },
+  { name: 'LinkedIn', icon: '💼', href: 'https://www.linkedin.com/in/damar-pratama-48307521b/', color: '#0077B5' },
 ];
 
 const Contact = () => {
@@ -81,7 +79,7 @@ const Contact = () => {
                   <div className="detail-icon">📧</div>
                   <div>
                     <div className="detail-label">{lang === 'en' ? 'Email' : 'Email'}</div>
-                    <div className="detail-value">youremail@example.com</div>
+                    <div className="detail-value">damar.p1209@gmail.com</div>
                   </div>
                 </div>
                 <div className="contact-detail-item">

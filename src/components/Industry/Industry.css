@@ -1,0 +1,325 @@
+.industry {
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tabs Filters container */
+.industry-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.industry-filters .filter-tab {
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-base);
+}
+
+.industry-filters .filter-tab:hover {
+  border-color: var(--tab-theme-color);
+  color: var(--tab-theme-color);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.industry-filters .filter-tab.active {
+  background: var(--tab-theme-color);
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.industry-tab-icon {
+  font-size: 16px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+}
+
+/* Split Dashboard Layout */
+.industry-dashboard-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.industry-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.column-icon {
+  font-size: 20px;
+}
+
+.column-title {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.column-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes indCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left Column Card (Experience Log) */
+.industry-log-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s, 
+              box-shadow 0.3s;
+  opacity: 0;
+  animation: indCardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.industry-log-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--industry-theme-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.log-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.log-role-title {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.log-period-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+.log-company-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.log-description {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.highlights-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.highlights-title {
+  font-family: 'Fira Code', Consolas, Monaco, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.6px;
+}
+
+.highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.highlights-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.check-icon {
+  margin-top: 3px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.2));
+}
+
+/* Right Column Card (Project) */
+.industry-project-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s, 
+              box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: indCardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.industry-project-card::before {
+  content: '</>';
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-family: 'Fira Code', monospace;
+  font-size: 36px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  user-select: none;
+}
+
+.industry-project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--industry-theme-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-card-header {
+  margin-bottom: 12px;
+}
+
+.project-card-name {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.project-card-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.project-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.project-badge {
+  font-size: 10.5px;
+  font-weight: 650;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-family: 'Fira Code', Consolas, monospace;
+}
+
+.project-card-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-bottom: 16px;
+}
+
+.project-card-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 14.5px;
+  font-weight: 750;
+  letter-spacing: 0.1px;
+}
+
+/* Responsiveness media queries */
+@media (max-width: 1024px) {
+  .industry-dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .industry-filters {
+    gap: 8px;
+  }
+  .filter-tab {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  .industry-log-card, 
+  .industry-project-card {
+    padding: 20px 24px;
+  }
+}

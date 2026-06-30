@@ -15,12 +15,10 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const navLinks = [
-    { key: 'about', href: '#about' },
-    { key: 'skills', href: '#skills' },
+    { key: 'industry', href: '#industry' },
+    { key: 'coverage', href: '#coverage' },
     { key: 'projects', href: '#projects' },
     { key: 'experience', href: '#experience' },
-    { key: 'education', href: '#education' },
-    { key: 'testimonials', href: '#testimonials' },
     { key: 'contact', href: '#contact' },
   ];
 
@@ -29,7 +27,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
 
       // Active section detection
-      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'education', 'testimonials', 'contact'];
+      const sections = ['home', 'industry', 'coverage', 'projects', 'experience', 'contact'];
       const current = sections.find(section => {
         const el = document.getElementById(section);
         if (!el) return false;
@@ -55,7 +53,7 @@ const Navbar = () => {
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={() => handleNavClick('#home')}>
           <span className="logo-bracket">&lt;</span>
-          <span className="logo-name">YN</span>
+          <span className="logo-name">DP</span>
           <span className="logo-bracket">/&gt;</span>
         </a>
 

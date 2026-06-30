@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLang } from '../../context/LanguageContext';
 import { en } from '../../locales/en';
 import { id } from '../../locales/id';
 import './Hero.css';
 
 const TYPING_ROLES = {
-  en: ['UI/UX Designer', 'Frontend Developer', 'Creative Thinker', 'Problem Solver'],
-  id: ['UI/UX Designer', 'Frontend Developer', 'Pemikir Kreatif', 'Pemecah Masalah'],
+  en: ['UI/UX Designer', 'Frontend Developer', 'Graphic Designer'],
+  id: ['UI/UX Designer', 'Frontend Developer', 'Desainer Grafis'],
 };
 
 const Hero = () => {
@@ -19,7 +19,7 @@ const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
-  const roles = TYPING_ROLES[lang];
+  const roles = TYPING_ROLES[lang] || TYPING_ROLES.en;
 
   // Typewriter effect
   useEffect(() => {
@@ -50,19 +50,13 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const stats = [
-    { value: '20+', label: t.hero.stats.projects },
-    { value: '15+', label: t.hero.stats.clients },
-    { value: '4+', label: t.hero.stats.experience },
-  ];
-
   const handleScroll = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('industry')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section id="home" className="hero">
-      {/* Animated background blobs */}
+      {/* Ambient background blur blobs */}
       <div className="hero-bg">
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
@@ -71,25 +65,71 @@ const Hero = () => {
       </div>
 
       <div className="container hero-container">
-        {/* Left Content */}
-        <div className="hero-content">
+        {/* Left Side: Mock Developer Terminal */}
+        <div className="hero-terminal-side">
+          <div className="terminal-window">
+            <div className="terminal-header">
+              <div className="terminal-dots">
+                <span className="dot dot-red"></span>
+                <span className="dot dot-yellow"></span>
+                <span className="dot dot-green"></span>
+              </div>
+              <span className="terminal-title">bash - guest@damarpratama: ~</span>
+            </div>
+            <div className="terminal-body">
+              <div className="terminal-line">
+                <span className="prompt">➜  ~</span> <span className="command">whoami</span>
+              </div>
+              <div className="terminal-output name-output">
+                {t.hero.name}
+              </div>
+              
+              <div className="terminal-line">
+                <span className="prompt">➜  ~</span> <span className="command">cat role.txt</span>
+              </div>
+              <div className="terminal-output role-output">
+                <span className="typing-role">
+                  {displayedRole}
+                  <span className={`terminal-cursor ${showCursor ? 'visible' : ''}`}>|</span>
+                </span>
+              </div>
+              
+              <div className="terminal-line">
+                <span className="prompt">➜  ~</span> <span className="command">./fetch_stats.sh</span>
+              </div>
+              <div className="terminal-output stats-output">
+                <div className="terminal-stat-item">
+                  <span className="stat-key">{lang === 'en' ? 'Projects Done' : 'Proyek Selesai'}</span>: <span className="stat-val">20+</span>
+                </div>
+                <div className="terminal-stat-item">
+                  <span className="stat-key">{lang === 'en' ? 'Happy Clients' : 'Klien Puas'}</span>: <span className="stat-val">15+</span>
+                </div>
+                <div className="terminal-stat-item">
+                  <span className="stat-key">{lang === 'en' ? 'Experience' : 'Pengalaman'}</span>: <span className="stat-val">4+ {lang === 'en' ? 'Years' : 'Tahun'}</span>
+                </div>
+                <div className="terminal-stat-item">
+                  <span className="stat-key">{lang === 'en' ? 'Location' : 'Lokasi'}</span>: <span className="stat-val">Indonesia</span>
+                </div>
+              </div>
+              
+              <div className="terminal-line last-prompt">
+                <span className="prompt">➜  ~</span> <span className="terminal-cursor-blink">_</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Heading & CTA */}
+        <div className="hero-text-side">
           <div className="hero-badge">
             <span className="badge-dot"></span>
-            <span>{lang === 'en' ? 'Available for work' : 'Tersedia untuk bekerja'}</span>
+            <span>{lang === 'en' ? 'Available for freelance' : 'Tersedia untuk freelance'}</span>
           </div>
 
           <h1 className="hero-title">
-            <span className="greeting">{t.hero.greeting}</span>
-            <span className="hero-name">{t.hero.name}</span>
+            <span className="greeting">{lang === 'en' ? "Hi, I'm" : 'Halo, saya'}</span>
+            <span className="hero-name-highlight">Damar Pratama</span>
           </h1>
-
-          <div className="hero-role-wrapper">
-            <span className="role-prefix">{lang === 'en' ? 'I am a ' : 'Saya seorang '}</span>
-            <span className="typing-text">
-              {displayedRole}
-              <span className={`cursor ${showCursor ? 'visible' : ''}`}>|</span>
-            </span>
-          </div>
 
           <p className="hero-tagline">{t.hero.tagline}</p>
 
@@ -114,41 +154,6 @@ const Hero = () => {
               </svg>
               {t.hero.cta_secondary}
             </a>
-          </div>
-
-          {/* Stats */}
-          <div className="hero-stats">
-            {stats.map((stat, i) => (
-              <div key={i} className="stat-item">
-                <span className="stat-value">{stat.value}</span>
-                <span className="stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right — Avatar Visual */}
-        <div className="hero-visual">
-          <div className="avatar-wrapper">
-            <div className="avatar-ring ring-1"></div>
-            <div className="avatar-ring ring-2"></div>
-            <div className="avatar-blob">
-              <div className="avatar-placeholder">
-                <span className="avatar-emoji">👨‍💻</span>
-                <p>{lang === 'en' ? 'Your Photo Here' : 'Foto Anda Di Sini'}</p>
-              </div>
-            </div>
-
-            {/* Floating badges */}
-            <div className="floating-badge badge-figma">
-              <span>🎨</span> Figma
-            </div>
-            <div className="floating-badge badge-react">
-              <span>⚛️</span> React
-            </div>
-            <div className="floating-badge badge-css">
-              <span>✨</span> CSS
-            </div>
           </div>
         </div>
       </div>

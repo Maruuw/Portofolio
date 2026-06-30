@@ -21,6 +21,24 @@
   width: 100%;
   height: 500px;
   perspective: 2400px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.book * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.book.dragging {
+  cursor: grabbing !important;
+}
+
+.book.dragging .leaf {
+  cursor: grabbing !important;
 }
 
 /* ================================================
@@ -252,6 +270,8 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .leaf-front {
@@ -260,10 +280,11 @@
   border-left: none;
   border-radius: 0 10px 10px 0;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
+  transform: translateZ(1px);
 }
 
 .leaf-back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px);
   background: var(--surface);
   border: 1px solid var(--border);
   border-right: none;
@@ -288,6 +309,65 @@
 }
 
 /* ================================================
+   PAGE CREASE SHADOW (Cylindrical Paper Crease Effect)
+   ================================================ */
+.page-crease-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+.crease-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.crease-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* ================================================
+   CORNER PEEL (Dog-ear soft curved paper curl)
+   ================================================ */
+.corner-peel {
+  position: absolute;
+  bottom: 0;
+  width: 0px;
+  height: 0px;
+  z-index: 100;
+  pointer-events: none;
+  /* Curved paper gradient mimicking a cylinder roll */
+  background: linear-gradient(135deg, 
+    var(--surface-3) 0%, 
+    var(--surface-2) 30%, 
+    rgba(0, 0, 0, 0.08) 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.corner-peel-front {
+  right: 0;
+  border-radius: 100% 0 0 0; /* soft cylinder corner curve */
+  transform-origin: bottom right;
+  transform: rotate(-10deg) translate(-2px, -2px);
+}
+
+.corner-peel-back {
+  left: 0;
+  border-radius: 0 100% 0 0;
+  transform-origin: bottom left;
+  transform: rotate(10deg) translate(2px, -2px);
+}
+
+/* ================================================
    PAGE CONTENT (shared by front & back)
    ================================================ */
 .page-content {
@@ -298,6 +378,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 /* ---- Page numbers ---- */
@@ -448,6 +529,141 @@
   border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 600;
+}
+
+/* ================================================
+   KEYFRAME ANIMATIONS (HIGH-FIDELITY REFERENCE DIAGONAL CORNER FOLD)
+   ================================================ */
+.leaf.animating-next {
+  animation: flip-next 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.leaf.animating-prev {
+  animation: flip-prev 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.leaf.animating-next .leaf-front .corner-peel {
+  animation: peel-front-animation 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.leaf.animating-next .leaf-front .page-content {
+  animation: clip-front-animation 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.leaf.animating-prev .leaf-back .corner-peel {
+  animation: peel-back-animation 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.leaf.animating-prev .leaf-back .page-content {
+  animation: clip-back-animation 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ---- Leaf Rotation Keyframes (High angle tilt matching reference) ---- */
+@keyframes flip-next {
+  0% {
+    transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateZ(0px) skewX(0deg) skewY(0deg);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  }
+  35% {
+    /* Starts peeling diagonally, rotates Z by -18deg, lift 40px */
+    transform: rotateY(-60deg) rotateX(-12deg) rotateZ(-18deg) translateZ(40px) skewX(-14deg) skewY(14deg);
+    box-shadow: 12px 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    /* Peak of curl (diagonal angle 28deg, lift 52px, skew 22deg) */
+    transform: rotateY(-90deg) rotateX(-18deg) rotateZ(-28deg) translateZ(52px) skewX(-22deg) skewY(22deg);
+    box-shadow: 20px 20px 45px rgba(0, 0, 0, 0.18);
+  }
+  65% {
+    /* Falling down */
+    transform: rotateY(-120deg) rotateX(-12deg) rotateZ(-18deg) translateZ(40px) skewX(-14deg) skewY(14deg);
+    box-shadow: 12px 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  100% {
+    transform: rotateY(-180deg) rotateX(0deg) rotateZ(0deg) translateZ(0px) skewX(0deg) skewY(0deg);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@keyframes flip-prev {
+  0% {
+    transform: rotateY(-180deg) rotateX(0deg) rotateZ(0deg) translateZ(0px) skewX(0deg) skewY(0deg);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+  }
+  35% {
+    transform: rotateY(-120deg) rotateX(-12deg) rotateZ(18deg) translateZ(40px) skewX(14deg) skewY(-14deg);
+    box-shadow: -12px 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    transform: rotateY(-90deg) rotateX(-18deg) rotateZ(28deg) translateZ(52px) skewX(22deg) skewY(-22deg);
+    box-shadow: -20px 20px 45px rgba(0, 0, 0, 0.18);
+  }
+  65% {
+    transform: rotateY(-60deg) rotateX(-12deg) rotateZ(18deg) translateZ(40px) skewX(14deg) skewY(-14deg);
+    box-shadow: -12px 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  100% {
+    transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateZ(0px) skewX(0deg) skewY(0deg);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ---- Corner Peel Animations ---- */
+@keyframes peel-front-animation {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  25%, 75% {
+    width: 85px;
+    height: 85px;
+  }
+  100% {
+    width: 0px;
+    height: 0px;
+  }
+}
+
+@keyframes peel-back-animation {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  25%, 75% {
+    width: 85px;
+    height: 85px;
+  }
+  100% {
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* ---- Clip Path Animations ---- */
+@keyframes clip-front-animation {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  25%, 75% {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 85px), calc(100% - 85px) 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes clip-back-animation {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  25%, 75% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 85px 100%, 0 calc(100% - 85px));
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
 }
 
 /* ================================================
