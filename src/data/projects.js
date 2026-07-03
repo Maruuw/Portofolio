@@ -10,6 +10,7 @@ export const projects = [
     },
     image: '/images/axa.png',
     gradient: 'linear-gradient(135deg, #6C63FF, #06B6D4)',
+    // Live Figma prototype link
     demo: 'https://www.figma.com/design/qPS7GLZrZzqrdlBgkaCnFf/Axa-~-ME?node-id=23-2856&t=3dJgrg1sFWzRIlPZ-1',
     github: '#',
     featured: true,
