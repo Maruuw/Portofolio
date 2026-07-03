@@ -2,8 +2,8 @@ export const industries = [
   {
     id: 'fintech',
     label: {
-      en: 'Fintech & Insurance',
-      id: 'Fintech & Asuransi'
+      en: 'Insurance',
+      id: 'Asuransi'
     },
     icon: '🏦',
     color: '#06b6d4', // Cyan

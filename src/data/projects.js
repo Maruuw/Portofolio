@@ -8,7 +8,7 @@ export const projects = [
       en: 'Complete UI/UX design for AXA Mandiri Human Capital mobile app, covering attendance tracking, meeting room booking, leave submission, and learning hours tracking.',
       id: 'Desain UI/UX lengkap untuk aplikasi seluler Human Capital AXA Mandiri, mencakup pelacakan kehadiran, pemesanan ruang rapat, pengajuan cuti, dan pelacakan jam belajar.',
     },
-    image: null,
+    image: '/images/axa.png',
     gradient: 'linear-gradient(135deg, #6C63FF, #06B6D4)',
     demo: '#',
     github: '#',

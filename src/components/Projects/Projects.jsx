@@ -61,6 +61,13 @@ const Projects = () => {
                 className="project-thumbnail"
                 style={{ background: project.gradient }}
               >
+                {project.image && (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="project-thumbnail-img"
+                  />
+                )}
                 <div className="project-category-badge">{project.category.toUpperCase()}</div>
                 <div className="project-overlay">
                   {project.demo && project.demo !== '#' && (
