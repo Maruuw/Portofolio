@@ -63,7 +63,7 @@ const Projects = () => {
               >
                 {project.image && (
                   <img
-                    src={project.image}
+                    src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
                     alt={project.title}
                     className="project-thumbnail-img"
                   />
