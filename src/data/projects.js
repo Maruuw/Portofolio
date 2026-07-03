@@ -37,7 +37,7 @@ export const projects = [
     tags: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'PHP'],
     description: {
       en: 'Frontend development for the award-winning CurhatKuy website concept. Exhibited at student works exhibition 2024 and won 2nd place in application competition.',
-      id: 'Pengembangan frontend untuk konsep situs web CurhatKuy yang memenangkan penghargaan. Dipamerkan di pameran karya siswa 2024 dan meraih Juara 2 dalam kompetisi aplikasi.',
+      id: 'Pengembangan front-end untuk konsep situs web CurhatKuy yang memenangkan penghargaan. Dipamerkan di pameran karya siswa 2024 dan meraih Juara 2 dalam kompetisi aplikasi.',
     },
     image: '/images/curhatkuy.png',
     gradient: 'linear-gradient(135deg, #10B981, #3B82F6)',
