@@ -16,7 +16,7 @@ export const en = {
     scrollHint: 'Scroll to explore',
     stats: {
       projects: 'Projects Done',
-      clients: 'Happy Clients',
+      clients: 'Clients',
       experience: 'Years Experience',
     }
   },

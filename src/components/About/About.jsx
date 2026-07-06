@@ -59,15 +59,15 @@ const About = () => {
             {/* Stats */}
             <div className="about-stats">
               <div className="about-stat">
-                <span className="about-stat-num gradient-text">20+</span>
+                <span className="about-stat-num gradient-text">5+</span>
                 <span>{lang === 'en' ? 'Projects Completed' : 'Proyek Selesai'}</span>
               </div>
               <div className="about-stat">
-                <span className="about-stat-num gradient-text">15+</span>
-                <span>{lang === 'en' ? 'Happy Clients' : 'Klien Puas'}</span>
+                <span className="about-stat-num gradient-text">2+</span>
+                <span>{lang === 'en' ? 'Clients' : 'Klien'}</span>
               </div>
               <div className="about-stat">
-                <span className="about-stat-num gradient-text">4+</span>
+                <span className="about-stat-num gradient-text">2+</span>
                 <span>{lang === 'en' ? 'Years Experience' : 'Tahun Pengalaman'}</span>
               </div>
             </div>

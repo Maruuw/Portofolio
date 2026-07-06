@@ -99,13 +99,13 @@ const Hero = () => {
               </div>
               <div className="terminal-output stats-output">
                 <div className="terminal-stat-item">
-                  <span className="stat-key">{lang === 'en' ? 'Projects Done' : 'Proyek Selesai'}</span>: <span className="stat-val">20+</span>
+                  <span className="stat-key">{lang === 'en' ? 'Projects Done' : 'Proyek Selesai'}</span>: <span className="stat-val">5+</span>
                 </div>
                 <div className="terminal-stat-item">
-                  <span className="stat-key">{lang === 'en' ? 'Happy Clients' : 'Klien Puas'}</span>: <span className="stat-val">15+</span>
+                  <span className="stat-key">{lang === 'en' ? 'Clients' : 'Klien'}</span>: <span className="stat-val">2+</span>
                 </div>
                 <div className="terminal-stat-item">
-                  <span className="stat-key">{lang === 'en' ? 'Experience' : 'Pengalaman'}</span>: <span className="stat-val">4+ {lang === 'en' ? 'Years' : 'Tahun'}</span>
+                  <span className="stat-key">{lang === 'en' ? 'Experience' : 'Pengalaman'}</span>: <span className="stat-val">2+ {lang === 'en' ? 'Years' : 'Tahun'}</span>
                 </div>
                 <div className="terminal-stat-item">
                   <span className="stat-key">{lang === 'en' ? 'Location' : 'Lokasi'}</span>: <span className="stat-val">Indonesia</span>

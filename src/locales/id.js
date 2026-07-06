@@ -16,7 +16,7 @@ export const id = {
     scrollHint: 'Scroll untuk menjelajahi',
     stats: {
       projects: 'Proyek Selesai',
-      clients: 'Klien Puas',
+      clients: 'Klien',
       experience: 'Tahun Pengalaman',
     }
   },
